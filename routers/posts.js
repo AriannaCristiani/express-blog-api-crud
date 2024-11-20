@@ -43,20 +43,26 @@ router.post('/', (req, res) => {
 
 //rotta update: dinamica
 router.put('/:id', (req, res) => {
-    const id = req.params.id
+    const id = parseInt(req.params.id)
     res.send(`stai aggiornando il post con id: ${id}`)
 })
 
 //rotta modify: dinamica
 router.patch('/:id', (req, res) => {
-    const id = req.params.id
+    const id = parseInt(req.params.id)
     res.send(`stai modificando il post con id: ${id}`)
 })
 
 //rotta destroy: dinamica
 router.delete('/:id', (req, res) => {
-    const id = req.params.id
-    res.send(`stai eliminando il post con id: ${id}`)
+    const id = parseInt(req.params.id)
+    //res.send(`stai eliminando il post con id: ${id}`)
+
+    const postIndex = posts.findIndex((post)=> post.id === id)
+
+    posts.splice(postIndex, 1)
+
+    res.sendStatus(204)
 })
 
 
