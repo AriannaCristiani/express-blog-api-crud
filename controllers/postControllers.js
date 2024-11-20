@@ -1,4 +1,4 @@
-const posts = require ('../data/posts')
+const posts = require ('../data/posts.js')
 
 
 function index (req , res) {
@@ -7,13 +7,16 @@ function index (req , res) {
     let filteredPosts = posts
 
     if(req.query.tag){
-        //console.log(`stai prendendo la ricatta con il seguente tag: ${rew.query.tag}`)
-        filteredPosts = posts.filter ((post) => {
-            return post.tag.includes (req.query.tag)
-        })
+        
+        console.log(`stai prendendo la ricetta con il seguente tag: ${req.query.tag}`)
+        
+		filteredPosts = posts.filter((post) => {
+			return post.tags.includes(req.query.tag.toLowerCase())
+		})
+        
     }
-
-    res.json (filteredPosts)
+    
+      res.json (filteredPosts)
 }
 
 
@@ -32,7 +35,7 @@ function show (req, res) {
         return
     }
 
-    res.json(posts)
+    res.json(post)
 }
 
 
