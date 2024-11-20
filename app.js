@@ -9,7 +9,7 @@ app.use(express.static('public'))
 
 //rotta principale
 app.get('/', (req, res) => {
-    res.send('hello')
+    //res.send('hello')
 })
 
 //registrazione del router

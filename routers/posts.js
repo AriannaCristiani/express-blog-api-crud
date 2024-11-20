@@ -5,7 +5,17 @@ const router = express.Router()
 //rotta index
 router.get('/', (req , res) =>{
     //res.send('questi sono i post')
-    res.json (posts)
+
+    let filteredPosts = posts
+
+    if(req.query.tag){
+        //console.log(`stai prendendo la ricatta con il seguente tag: ${rew.query.tag}`)
+        filteredPosts = posts.filter ((post) => {
+            return post.tag.includes (req.query.tag)
+        })
+    }
+
+    res.json (filteredPosts)
 })
 
 //rotta show: dinamica
