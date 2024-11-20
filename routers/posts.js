@@ -20,9 +20,20 @@ router.get('/', (req , res) =>{
 
 //rotta show: dinamica
 router.get('/:id', (req, res) => {
-    const id = req.params.id
+    const id = parseInt(req.params.id)
     //res.send(`questo è il post con id: ${id}`)
-    res.json (posts[`${id}`])
+    const post = posts.find ((post) => post.id === id)
+
+    if (!post) {
+        res.status(404)
+        res.json({
+            error: 'post not found',
+            message: 'il post non è stato trovato'
+        })
+        return
+    }
+
+    res.json(posts)
 })
 
 //rotta store
