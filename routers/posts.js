@@ -1,5 +1,5 @@
 const express = require ('express')
-const posts = require ('../posts-array')
+const posts = require ('../data/posts')
 const router = express.Router()
 
 //rotta index

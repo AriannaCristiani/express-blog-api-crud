@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const postsRouter = require ('./routers/posts.js')
 const port = 3000
-const posts = require('./posts-array.js')
+const posts = require('./data/posts.js')
 
 
 app.use(express.static('public'))
