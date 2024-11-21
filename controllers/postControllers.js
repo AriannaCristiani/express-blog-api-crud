@@ -15,7 +15,13 @@ function index(req, res) {
             return post.tags.includes(req.query.tag.toLowerCase())
         })
     }
-    res.json(filteredPosts)
+
+    const count = filteredPosts.length
+
+    res.json({
+        count,
+        filteredPosts
+    })
 }
 
 
@@ -38,7 +44,7 @@ function show(req, res) {
 
 function store(req, res) {
     //res.send('stai creando un nuovo post')
-    //console.log(req.body)
+    console.log(req.body)
     const { title, slug, content, image, tags } = req.body
 
     lastIndex++
@@ -51,6 +57,8 @@ function store(req, res) {
         image: image,
         tags: tags,
     }
+
+    console.log(newPost)
 
     posts.push(newPost)
     res.status(201).send(newPost)
