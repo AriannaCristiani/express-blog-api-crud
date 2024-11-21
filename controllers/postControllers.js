@@ -1,4 +1,5 @@
 const posts = require ('../data/posts.js')
+let lastIndex = posts.at(-1).id
 
 
 function index (req , res) {
@@ -40,7 +41,24 @@ function show (req, res) {
 
 
 function store (req, res) {
-    res.send('stai creando un nuovo post')
+    //res.send('stai creando un nuovo post')
+    //console.log(req.body)
+    const { title , slug , content , image , tags} = req.body
+
+    lastIndex ++
+
+    const newPost = {
+        id: lastIndex,
+        title: title,
+        slug: slug,
+        content: content,
+        image: image,
+        tags: tags,
+    }
+
+    posts.push(newPost)
+    res.status(201).send(newPost)
+
 }
 
 
