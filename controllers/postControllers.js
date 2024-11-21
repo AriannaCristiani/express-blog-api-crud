@@ -64,7 +64,19 @@ function store (req, res) {
 
 function update (req, res) {
     const id = parseInt(req.params.id)
-    res.send(`stai aggiornando il post con id: ${id}`)
+    //res.send(`stai aggiornando il post con id: ${id}`)
+
+    const post = posts.find ((post) => post.id === id)
+
+    const { title , slug , content , image , tags} = req.body
+
+    post.title = title;
+    post.slug = slug;
+    post.content = content;
+    post.image = image;
+    post.tags = tags
+
+    res.json(post)
 }
 
 
