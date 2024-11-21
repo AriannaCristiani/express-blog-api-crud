@@ -44,6 +44,19 @@ function show(req, res) {
 function store(req, res) {
     //res.send('stai creando un nuovo post')
     console.log(req.body)
+
+    const errors = validation(req)
+
+	if (errors.length) {
+
+		res.status(400)
+
+		return res.json({
+			error: 'Invalid request',
+			messages: errors,
+		})
+	}
+
     const { title, slug, content, image, tags } = req.body
 
     lastIndex++
@@ -72,7 +85,6 @@ function update(req, res) {
     const errors = validation(req)
 
 	if (errors.length) {
-		// rispondere con un errore
 
 		res.status(400)
 
