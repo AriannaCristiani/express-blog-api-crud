@@ -82,7 +82,24 @@ function update (req, res) {
 
 function patch (req, res) {
     const id = parseInt(req.params.id)
-    res.send(`stai modificando il post con id: ${id}`)
+    //res.send(`stai modificando il post con id: ${id}`)
+
+    const post = posts.find ((post) => post.id === id)
+
+    const { title , slug , content , image , tags} = req.body
+    
+
+    if (title) post.title = title;
+
+    if (slug) post.slug = slug;
+
+    if (content) post.content = content;
+
+    if (image) post.image = image;
+
+    if (tags) post.tags = tags
+
+    res.json(post)
 }
 
 
