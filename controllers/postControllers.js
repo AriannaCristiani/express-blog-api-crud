@@ -69,8 +69,30 @@ function update(req, res) {
     const id = parseInt(req.params.id)
     //res.send(`stai aggiornando il post con id: ${id}`)
 
+    const errors = validation(req)
+
+	if (errors.length) {
+		// rispondere con un errore
+
+		res.status(400)
+
+		return res.json({
+			error: 'Invalid request',
+			messages: errors,
+		})
+	}
+
     const post = posts.find((post) => post.id === id)
     console.log(post)
+
+    if (!post) {
+        res.status(404)
+        res.json({
+            error: 'post not found',
+            message: 'il post non è stato trovato'
+        })
+        return
+    }
 
     const { title, slug, content, image, tags } = req.body
     console.log(req.body)
@@ -91,6 +113,15 @@ function modify(req, res) {
 
     const post = posts.find((post) => post.id === id)
     console.log(post)
+
+    if (!post) {
+        res.status(404)
+        res.json({
+            error: 'post not found',
+            message: 'il post non è stato trovato'
+        })
+        return
+    }
 
     const { title, slug, content, image, tags } = req.body
     console.log(req.body)
@@ -124,6 +155,38 @@ function destroy(req, res) {
     posts.splice(postIndex, 1)
 
     res.sendStatus(204)
+}
+
+function validation(req) {
+    const { title, slug, content, image, tags } = req.body
+
+	// VALIDAZIONE DEI DATI
+
+	const errors = []
+
+	if (!title) {
+		errors.push('title is required')
+	}
+
+	if (!slug) {
+		errors.push('slug is required')
+	}
+
+	if (!content) {
+		errors.push('content is required')
+	}
+
+    if (!image) {
+        errors.push('image is required')
+	}
+
+    if (!tags) {
+		errors.push('tags are required')
+	}
+
+
+
+	return errors
 }
 
 
