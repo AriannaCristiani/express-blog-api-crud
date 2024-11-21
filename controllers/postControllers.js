@@ -19,7 +19,7 @@ function index(req, res) {
 
     const count = filteredPosts.length
 
-    res.json({ count , filteredPosts})
+    res.json({ count, filteredPosts })
 }
 
 
@@ -47,15 +47,15 @@ function store(req, res) {
 
     const errors = validation(req)
 
-	if (errors.length) {
+    if (errors.length) {
 
-		res.status(400)
+        res.status(400)
 
-		return res.json({
-			error: 'Invalid request',
-			messages: errors,
-		})
-	}
+        return res.json({
+            error: 'Invalid request',
+            messages: errors,
+        })
+    }
 
     const { title, slug, content, image, tags } = req.body
 
@@ -84,15 +84,15 @@ function update(req, res) {
 
     const errors = validation(req)
 
-	if (errors.length) {
+    if (errors.length) {
 
-		res.status(400)
+        res.status(400)
 
-		return res.json({
-			error: 'Invalid request',
-			messages: errors,
-		})
-	}
+        return res.json({
+            error: 'Invalid request',
+            messages: errors,
+        })
+    }
 
     const post = posts.find((post) => post.id === id)
     console.log(post)
@@ -156,49 +156,44 @@ function destroy(req, res) {
     const postIndex = posts.findIndex((post) => post.id === id)
 
     if (postIndex === -1) {
-		res.status(404)
+        res.status(404)
 
-		return res.json({
-			error: 'Post not found',
-			message: 'Il post non è stato trovato',
-		})
-	}
+        return res.json({
+            error: 'Post not found',
+            message: 'Il post non è stato trovato',
+        })
+    }
 
     posts.splice(postIndex, 1)
 
     res.sendStatus(204)
 }
 
+
+// validazione dei dati
 function validation(req) {
     const { title, slug, content, image, tags } = req.body
 
-	// VALIDAZIONE DEI DATI
 
-	const errors = []
+    const errors = []
 
-	if (!title) {
-		errors.push('title is required')
-	}
-
-	if (!slug) {
-		errors.push('slug is required')
-	}
-
-	if (!content) {
-		errors.push('content is required')
-	}
-
+    if (!title) {
+        errors.push('title is required')
+    }
+    if (!slug) {
+        errors.push('slug is required')
+    }
+    if (!content) {
+        errors.push('content is required')
+    }
     if (!image) {
         errors.push('image is required')
-	}
-
+    }
     if (!tags) {
-		errors.push('tags are required')
-	}
+        errors.push('tags are required')
+    }
 
-
-
-	return errors
+    return errors
 }
 
 

@@ -1,7 +1,7 @@
-const express = require ('express')
-const posts = require ('../data/posts.js')
+const express = require('express')
+const posts = require('../data/posts.js')
 const router = express.Router()
-const postController = require ('../controllers/postControllers.js')
+const postController = require('../controllers/postControllers.js')
 
 //rotta index
 router.get('/', postController.index)
