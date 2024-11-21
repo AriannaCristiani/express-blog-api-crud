@@ -1,31 +1,28 @@
-const posts = require ('../data/posts.js')
+const posts = require('../data/posts.js')
 let lastIndex = posts.at(-1).id
 
 
-function index (req , res) {
+function index(req, res) {
     //res.send('questi sono i post')
 
     let filteredPosts = posts
 
-    if(req.query.tag){
-        
-        console.log(`stai prendendo la ricetta con il seguente tag: ${req.query.tag}`)
-        
-		filteredPosts = posts.filter((post) => {
-			return post.tags.includes(req.query.tag.toLowerCase())
-		})
-        
-    }
+    if (req.query.tag) {
 
-      res.json (filteredPosts)
+        console.log(`stai prendendo la ricetta con il seguente tag: ${req.query.tag}`)
+
+        filteredPosts = posts.filter((post) => {
+            return post.tags.includes(req.query.tag.toLowerCase())
+        })
+    }
+    res.json(filteredPosts)
 }
 
 
-
-function show (req, res) {
+function show(req, res) {
     const id = parseInt(req.params.id)
     //res.send(`questo è il post con id: ${id}`)
-    const post = posts.find ((post) => post.id === id)
+    const post = posts.find((post) => post.id === id)
 
     if (!post) {
         res.status(404)
@@ -35,17 +32,16 @@ function show (req, res) {
         })
         return
     }
-
     res.json(post)
 }
 
 
-function store (req, res) {
+function store(req, res) {
     //res.send('stai creando un nuovo post')
     //console.log(req.body)
-    const { title , slug , content , image , tags} = req.body
+    const { title, slug, content, image, tags } = req.body
 
-    lastIndex ++
+    lastIndex++
 
     const newPost = {
         id: lastIndex,
@@ -62,13 +58,13 @@ function store (req, res) {
 }
 
 
-function update (req, res) {
+function update(req, res) {
     const id = parseInt(req.params.id)
     //res.send(`stai aggiornando il post con id: ${id}`)
 
-    const post = posts.find ((post) => post.id === id)
+    const post = posts.find((post) => post.id === id)
 
-    const { title , slug , content , image , tags} = req.body
+    const { title, slug, content, image, tags } = req.body
 
     post.title = title;
     post.slug = slug;
@@ -80,34 +76,30 @@ function update (req, res) {
 }
 
 
-function patch (req, res) {
+function modify(req, res) {
     const id = parseInt(req.params.id)
     //res.send(`stai modificando il post con id: ${id}`)
 
-    const post = posts.find ((post) => post.id === id)
+    const post = posts.find((post) => post.id === id)
 
-    const { title , slug , content , image , tags} = req.body
-    
+    const { title, slug, content, image, tags } = req.body
+
 
     if (title) post.title = title;
-
     if (slug) post.slug = slug;
-
     if (content) post.content = content;
-
     if (image) post.image = image;
-
     if (tags) post.tags = tags
 
     res.json(post)
 }
 
 
-function destroy (req, res) {
+function destroy(req, res) {
     const id = parseInt(req.params.id)
     //res.send(`stai eliminando il post con id: ${id}`)
 
-    const postIndex = posts.findIndex((post)=> post.id === id)
+    const postIndex = posts.findIndex((post) => post.id === id)
 
     posts.splice(postIndex, 1)
 
@@ -117,4 +109,4 @@ function destroy (req, res) {
 
 
 
-module.exports = { index , show , store , update , patch , destroy}
+module.exports = { index, show, store, update, modify, destroy }

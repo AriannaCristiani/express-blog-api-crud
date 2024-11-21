@@ -16,7 +16,7 @@ router.post('/', postController.store)
 router.put('/:id', postController.update)
 
 //rotta modify: dinamica
-router.patch('/:id', postController.patch)
+router.patch('/:id', postController.modify)
 
 //rotta destroy: dinamica
 router.delete('/:id', postController.destroy)
