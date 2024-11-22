@@ -1,5 +1,6 @@
 const express = require('express')
-const postsRouter = require('./routers/posts.js')
+const postsRouter = require('./routers/posts.js');
+const findError = require('./middleware/find-error.js');
 const app = express()
 const port = 3000
 
@@ -12,10 +13,14 @@ app.use(express.json());
 //rotta principale
 app.get('/', (req, res) => {
     //res.send('hello')
+    throw new Error ('Errore di prova') //test errore con middleware
 });
 
 //registrazione del router
 app.use('/posts', postsRouter);
+
+//middleware: errore 500
+app.use(findError);
 
 //verifica sulla porta
 app.listen(port, () => {
