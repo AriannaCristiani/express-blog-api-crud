@@ -1,6 +1,7 @@
 const express = require('express')
 const postsRouter = require('./routers/posts.js');
 const findError = require('./middleware/find-error.js');
+const pageNotFound = require('./middleware/page-not-found.js');
 const app = express()
 const port = 3000
 
@@ -19,8 +20,11 @@ app.get('/', (req, res) => {
 //registrazione del router
 app.use('/posts', postsRouter);
 
-//middleware: errore 500
+//middleware: errore 500(error back-end)
 app.use(findError);
+
+//middleware: errore 404(page non found)
+app.use(pageNotFound);
 
 //verifica sulla porta
 app.listen(port, () => {
