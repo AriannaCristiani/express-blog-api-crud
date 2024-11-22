@@ -29,14 +29,6 @@ function show(req, res) {
     const post = posts.find((post) => post.id === id)
     console.log(post)
 
-    if (!post) {
-        res.status(404)
-        res.json({
-            error: 'post not found',
-            message: 'il post non è stato trovato'
-        })
-        return
-    }
     res.json(post)
 }
 
@@ -97,14 +89,6 @@ function update(req, res) {
     const post = posts.find((post) => post.id === id)
     console.log(post)
 
-    if (!post) {
-        res.status(404)
-        res.json({
-            error: 'post not found',
-            message: 'il post non è stato trovato'
-        })
-        return
-    }
 
     const { title, slug, content, image, tags } = req.body
     console.log(req.body)
@@ -126,15 +110,6 @@ function modify(req, res) {
     const post = posts.find((post) => post.id === id)
     console.log(post)
 
-    if (!post) {
-        res.status(404)
-        res.json({
-            error: 'post not found',
-            message: 'il post non è stato trovato'
-        })
-        return
-    }
-
     const { title, slug, content, image, tags } = req.body
     console.log(req.body)
 
@@ -154,15 +129,6 @@ function destroy(req, res) {
     //res.send(`stai eliminando il post con id: ${id}`)
 
     const postIndex = posts.findIndex((post) => post.id === id)
-
-    if (postIndex === -1) {
-        res.status(404)
-
-        return res.json({
-            error: 'Post not found',
-            message: 'Il post non è stato trovato',
-        })
-    }
 
     posts.splice(postIndex, 1)
 
