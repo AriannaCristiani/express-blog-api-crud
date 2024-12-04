@@ -34,24 +34,24 @@ function show(req, res) {
 
 
 function store(req, res) {
-    //res.send('stai creando un nuovo post')
-    console.log(req.body)
+    console.log('Body della richiesta:', req.body);
 
-    const errors = validation(req)
+    const errors = validation(req);
 
     if (errors.length) {
-
-        res.status(400)
-
-        return res.json({
+        console.log('Errori di validazione:', errors);
+        res.status(400).json({
             error: 'Invalid request',
             messages: errors,
-        })
+        });
+        return;
     }
 
-    const { title, content, image = '', category, tags, published = true } = req.body
+    const { title, content, image = '', category, tags, published = true } = req.body;
 
-    lastIndex++
+    console.log('Dati ricevuti:', { title, content, image, category, tags, published });
+
+    lastIndex++;
 
     const newPost = {
         id: lastIndex,
@@ -60,16 +60,14 @@ function store(req, res) {
         image: image,
         category: category,
         tags: tags,
-        published: published = true
-    }
+        published: published,
+    };
 
-    console.log(newPost)
+    console.log('Nuovo post creato:', newPost);
 
-    posts.push(newPost)
-    res.status(201).send(newPost)
-
+    posts.push(newPost);
+    res.status(201).send(newPost);
 }
-
 
 function update(req, res) {
     const id = parseInt(req.params.id)
