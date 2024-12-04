@@ -49,17 +49,18 @@ function store(req, res) {
         })
     }
 
-    const { title, slug, content, image, tags } = req.body
+    const { title, content, image, category, tags, published = true } = req.body
 
     lastIndex++
 
     const newPost = {
         id: lastIndex,
         title: title,
-        slug: slug,
         content: content,
         image: image,
+        category: category,
         tags: tags,
+        published: published
     }
 
     console.log(newPost)
@@ -138,7 +139,7 @@ function destroy(req, res) {
 
 // validazione dei dati
 function validation(req) {
-    const { title, slug, content, image, tags } = req.body
+    const { title, slug, content, category, tags, published = true } = req.body
 
 
     const errors = []
@@ -152,8 +153,8 @@ function validation(req) {
     if (!content) {
         errors.push('content is required')
     }
-    if (!image) {
-        errors.push('image is required')
+    if (!category) {
+        errors.push('category is required')
     }
     if (!tags) {
         errors.push('tags are required')
