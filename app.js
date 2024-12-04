@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('corse')
+const cors = require('cors')
 const postsRouter = require('./routers/posts.js');
 const findError = require('./middleware/find-error.js');
 const pageNotFound = require('./middleware/page-not-found.js');
